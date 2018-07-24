@@ -19,6 +19,7 @@ namespace OdeToFood
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            // To set up global filters (Action filter)
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             // Pass in the table that contains all the routes
             RouteConfig.RegisterRoutes(RouteTable.Routes);
