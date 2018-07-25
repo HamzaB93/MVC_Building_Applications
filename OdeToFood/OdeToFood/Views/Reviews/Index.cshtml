@@ -40,7 +40,9 @@ We are shwowing the latest reviews @Model.Count() reviews
             @Html.DisplayFor(modelItem => item.Country)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Rating)
+            @*@Html.DisplayFor(modelItem => item.Rating)*@
+            R@(item.Rating / 10)
+            @@OdeToCode
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
