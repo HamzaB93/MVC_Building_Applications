@@ -753,4 +753,22 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+
+    /* review
+    ----------------------------------------------------------*/
+    .review {
+        padding: 2px;
+        border-bottom: 2px solid black;
+        padding-bottom: 10px;
+    }
+
+        .review h4 {
+            color:#333;
+            padding: 5px;
+            background: #fff;
+        }
+
+        .review p {
+            font-size: .8em;
+        }
 }
