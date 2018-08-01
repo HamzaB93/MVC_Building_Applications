@@ -61,7 +61,11 @@ namespace OdeToFood.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            // Find the review first
+            // Give the single review out of the collection that has this id
+            var review = _reviews.Single(r => r.Id == id);
+
+            return View(review);
         }
 
         //
@@ -70,16 +74,15 @@ namespace OdeToFood.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+            // Save the new value of the edited review
+            // Get the review that was edited
+            var review = _reviews.Single(r => r.Id == id);
 
+            if (TryUpdateModel(review))
+            {
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(review);
         }
 
         //

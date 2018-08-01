@@ -16,6 +16,11 @@
         <h4>@item.Name</h4>
         <span>@item.Rating</span>
         <p>@item.City, @item.Country</p>
+
+        @* Edit a review, The actionLink link will use the current controller, dont need to specify*@
+        <span class="right">
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+        </span>
     </div>
 }
 
