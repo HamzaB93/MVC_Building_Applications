@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OdeToFood.Models.Restaurant>
+﻿@model IEnumerable<OdeToFood.Models.RestaurantListViewModel>
 
 @{
     ViewBag.Title = "Ode To Food: MVC Practice";
@@ -10,6 +10,9 @@
         <h4>@item.Name</h4>
         <div>
             @item.City, @item.Country
+        </div>
+        <div>
+            Reviews: @item.CountOfReviews
         </div>
         <hr />
     </div>

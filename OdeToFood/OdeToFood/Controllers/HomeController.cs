@@ -14,7 +14,34 @@ namespace OdeToFood.Controllers
         public ActionResult Index()
         {
             // Entity framework will go into sql server and retrieve all the restaurants and put it into list
-            var model = _db.Restaurants.ToList();
+
+            // ComprehensionQuery Syntax
+            //var model =
+            //    from r in _db.Restaurants
+            //    orderby r.Reviews.Average(review => review.Rating) descending
+            //    select new RestaurantListViewModel
+            //    {
+            //        Id = r.Id,
+            //        Name = r.Name,
+            //        City = r.City,
+            //        Country = r.Country,
+            //        CountOfReviews = r.Reviews.Count()
+            //    };
+
+            // Extension Method Syntax
+            var model =
+                _db.Restaurants
+                    .OrderByDescending(r => r.Reviews.Average(review => review.Rating))
+                    .Take(10)
+                    .Select(r => new RestaurantListViewModel
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        City = r.City,
+                        Country = r.Country,
+                        CountOfReviews = r.Reviews.Count()
+                    });
+
 
             return View(model);
         }
