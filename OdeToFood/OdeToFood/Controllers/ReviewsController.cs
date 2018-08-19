@@ -1,153 +1,37 @@
-﻿//using OdeToFood.Models;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
-//using System.Web.Mvc;
+﻿using OdeToFood.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
-//namespace OdeToFood.Controllers
-//{
-//    public class ReviewsController : Controller
-//    {
-//        // Cant call this directly from a url
-//        [ChildActionOnly]
-//        public ActionResult BestReview()
-//        {
-//            // Get the reviews in a sorted order
-//            var bestReview = from r in _reviews
-//                             orderby r.Rating descending
-//                             select r;
+namespace OdeToFood.Controllers
+{
+    public class ReviewsController : Controller
+    {
+        OdeToFoodDb _db = new OdeToFoodDb();
 
-//            // Return the partial view _Review and pass the first review in the list
-//            return PartialView("_Review", bestReview.First());
-//        }
+        //
+        // GET: /Reviews/
 
-//        //
-//        // GET: /Reviews/
+        // Not the id for the review, its the id of the restaurant
+        // Bind will find the restuarantId with the name of id 
+        public ActionResult Index([Bind(Prefix="id")] int restaurantId)
+        {
+            var restaurant = _db.Restaurants.Find(restaurantId);
 
-//        public ActionResult Index()
-//        {
-//            var model =
-//                from r in _reviews
-//                orderby r.Country
-//                select r;
+            if (restaurant != null)
+            {
+                return View(restaurant);
+            }
 
-//            return View(model);
-//        }
+            return HttpNotFound(); 
+        }
 
-//        //
-//        // GET: /Reviews/Details/5
-
-//        public ActionResult Details(int id)
-//        {
-//            return View();
-//        }
-
-//        //
-//        // GET: /Reviews/Create
-
-//        public ActionResult Create()
-//        {
-//            return View();
-//        }
-
-//        //
-//        // POST: /Reviews/Create
-
-//        [HttpPost]
-//        public ActionResult Create(FormCollection collection)
-//        {
-//            try
-//            {
-//                // TODO: Add insert logic here
-
-//                return RedirectToAction("Index");
-//            }
-//            catch
-//            {
-//                return View();
-//            }
-//        }
-
-//        //
-//        // GET: /Reviews/Edit/5
-
-//        public ActionResult Edit(int id)
-//        {
-//            // Find the review first
-//            // Give the single review out of the collection that has this id
-//            var review = _reviews.Single(r => r.Id == id);
-
-//            return View(review);
-//        }
-
-//        //
-//        // POST: /Reviews/Edit/5
-
-//        [HttpPost]
-//        public ActionResult Edit(int id, FormCollection collection)
-//        {
-//            // Save the new value of the edited review
-//            // Get the review that was edited
-//            var review = _reviews.Single(r => r.Id == id);
-
-//            if (TryUpdateModel(review))
-//            {
-//                return RedirectToAction("Index");
-//            }
-//            return View(review);
-//        }
-
-//        //
-//        // GET: /Reviews/Delete/5
-
-//        public ActionResult Delete(int id)
-//        {
-//            return View();
-//        }
-
-//        //
-//        // POST: /Reviews/Delete/5
-
-//        [HttpPost]
-//        public ActionResult Delete(int id, FormCollection collection)
-//        {
-//            try
-//            {
-//                // TODO: Add delete logic here
-
-//                return RedirectToAction("Index");
-//            }
-//            catch
-//            {
-//                return View();
-//            }
-//        }
-
-//        //TEMP IN CLASS DATA
-//        static List<RestaurantReview> _reviews = new List<RestaurantReview>
-//        {
-//            new RestaurantReview {
-//                Id = 1,
-//                Name = "Cinamon Club",
-//                City = "London",
-//                Country = "UK",
-//                Rating = 10
-//            },            
-//            new RestaurantReview {
-//                Id = 2,
-//                Name = "Marrakesh",
-//                City = "D.C",
-//                Country = "USA",
-//                Rating = 10
-//            },
-//            new RestaurantReview {
-//                Id = 3,
-//                Name = "House Of Elliot",
-//                City = "Ghent",
-//                Country = "Belgium",
-//                Rating = 10
-//            }
-//        };
-//    }
-//}
+        protected override void Dispose(bool disposing)
+        {
+            _db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+}
