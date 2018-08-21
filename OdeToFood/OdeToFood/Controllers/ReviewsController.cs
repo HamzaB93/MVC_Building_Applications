@@ -28,10 +28,39 @@ namespace OdeToFood.Controllers
             return HttpNotFound(); 
         }
 
+        [HttpGet]
+        public ActionResult Create(int restaurantId)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(RestaurantReview review)
+        {
+            //Model binder will instantiate RestaurantReview and populate it with values from the request
+            //Will also give the restaurant id to associate it correctly.
+
+            // check if model state is valid
+            if (ModelState.IsValid)
+            {
+                // Add the review to the collection
+                _db.Reviews.Add(review);
+
+                // Save to the db
+                _db.SaveChanges();
+
+                return RedirectToAction("Index", new { id = review.RestaurantId });
+            }
+
+            return View(review);
+        }
+
         protected override void Dispose(bool disposing)
         {
             _db.Dispose();
             base.Dispose(disposing);
         }
+
+
     }
 }

@@ -11,6 +11,7 @@ namespace OdeToFood.Models
         public string Name { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        // Virtual will ensure entity framework loads the reviews at run time
         public virtual ICollection<RestaurantReview> Reviews{ get; set; }
     }
 }
