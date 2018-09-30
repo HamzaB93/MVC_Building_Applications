@@ -4,14 +4,15 @@
     ViewBag.Title = "Ode To Food: MVC Practice";
 }
 
-@*<form method="get">
+<form method="get" action="@Url.Action("Index")"
+    data-otf-ajax="true" data-otf-target="#restaurantList">
     
     <input type="search" name="searchTerm" />
     <input type="submit" value="Search By Name" />
 
-</form>*@
+</form>
 
-@using (Ajax.BeginForm(
+@*@using (Ajax.BeginForm(
     new AjaxOptions{
         HttpMethod = "get",
         InsertionMode = InsertionMode.Replace,
@@ -19,6 +20,6 @@
 {
     <input type="search" name="searchTerm" />
     <input type="submit" value="Search By Name" />
-}    
+}  *@  
         
 @Html.Partial("_Restaurants", Model)
